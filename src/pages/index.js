@@ -1,3 +1,4 @@
+// src/pages/index.js
 import Head from 'next/head';
 import BusquedaInsumos from "../components/BusquedaInsumos";
 import FormularioContacto from "../components/FormularioContacto";
@@ -13,7 +14,6 @@ export default function Home() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      // Si no hay token, redirigir al login
       router.push('/login');
     } else {
       // Cargar el idioma almacenado en localStorage
@@ -22,24 +22,45 @@ export default function Home() {
         setLanguage(storedLanguage);
       }
     }
+
+    // Limpiar el token al cerrar la pestaña o la ventana
+    const handleBeforeUnload = () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("language");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Limpieza del evento al desmontar el componente
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, [router]);
+
+  // Función para cerrar sesión manualmente
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("language");
+    router.push("/login");
+  };
 
   return (
     <>
       <Head>
-        <title>Búsqueda de Insumos Alimentarios</title>
-        <meta name="description" content="Encuentra insumos alimentarios de supermercado o negocio." />
+        <title>{language === 'es' ? 'Búsqueda de Insumos Alimentarios' : 'Food Supplies Search'}</title>
+        <meta name="description" content={language === 'es' ? 'Encuentra insumos alimentarios de supermercado o negocio.' : 'Find food supplies from the supermarket or store.'} />
       </Head>
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-900 to-blue-700 text-white">
-        <div className="w-full max-w-4xl p-10 bg-blue-800 bg-opacity-90 rounded-2xl shadow-lg">
-          <h1 className="text-4xl font-semibold text-center mb-8">Búsqueda de Insumos Alimentarios</h1>
-          <p className="text-center text-gray-300 mb-8">
-            Encuentra insumos alimentarios para tu supermercado o negocio de manera fácil y rápida.
-          </p>
-          <div className="space-y-6">
-            <BusquedaInsumos language={language} />
-          </div>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-700 text-white flex flex-col items-center p-6">
+        <h1 className="text-4xl font-semibold mb-6">
+          {language === 'es' ? 'Búsqueda de Insumos Alimentarios' : 'Food Supplies Search'}
+        </h1>
+        
+        <BusquedaInsumos language={language} />
+
+        {/* Botón de Cerrar Sesión */}
+        <button onClick={handleLogout} className="mt-8 px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-300">
+          {language === 'es' ? 'Cerrar sesión' : 'Logout'}
+        </button>
       </div>
     </>
   );
