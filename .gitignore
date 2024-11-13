@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Ignorar la carpeta proyectodiseno y todo su contenido
+proyectodiseno/
+
+# Ignorar todos los archivos con extensión .csv y .xlsx
+*.csv
+*.xlsx
