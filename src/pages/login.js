@@ -51,19 +51,18 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-blue-800 bg-opacity-80 p-8 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-semibold text-center text-white mb-6">
+    <div className="min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-100 flex items-center justify-center p-6">
+      <div className="w-full max-w-md backdrop-blur-sm bg-white/70 p-8 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-semibold text-center text-black mb-6">
           {language === "es" ? "Iniciar Sesión" : "Login"}
         </h2>
-
         {/* Selector de idioma */}
         <div className="mb-4 text-center">
           <select
             id="language"
             // value={language}
             onChange={handleLanguageChange}
-            className="bg-blue-700 text-white py-1 px-2 rounded focus:outline-none"
+            className="bg-green-700 text-white py-1 px-2 rounded focus:outline-none"
           >
             <option value="" disabled selected>
               {language === "es" ? "Idioma" : "Language"}
@@ -72,13 +71,9 @@ export default function Login() {
             <option value="en">English</option>
           </select>
         </div>
-
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
-            <label
-              htmlFor="username"
-              className="absolute left-3 top-2 text-yellow-300"
-            >
+            <label htmlFor="username" className="absolute left-3 top-2 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -100,14 +95,11 @@ export default function Login() {
               placeholder={language === "es" ? "Nombre de usuario" : "Username"}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full py-3 px-10 bg-blue-700 text-white placeholder-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full py-3 px-10 bg-green-50 text-black placeholder-black rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
           <div className="relative">
-            <label
-              htmlFor="password"
-              className="absolute left-3 top-2 text-yellow-300"
-            >
+            <label htmlFor="password" className="absolute left-3 top-2 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -129,21 +121,21 @@ export default function Login() {
               placeholder={language === "es" ? "Contraseña" : "Password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full py-3 px-10 bg-blue-700 text-white placeholder-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full py-3 px-10 bg-green-50 text-black placeholder-black rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
+            className="w-full py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 transition duration-300"
           >
             {language === "es" ? "Iniciar Sesión" : "Login"}
           </button>
         </form>
-        <p className="text-center text-blue-300 mt-4">
+        <p className="text-center text-black mt-4">
           {language === "es"
             ? "¿No tienes una cuenta?"
             : "Don't have an account?"}{" "}
-          <a href="/register" className="text-blue-100 hover:underline">
+          <a href="/register" className="text-green-700 hover:underline">
             {language === "es" ? "Regístrate aquí" : "Sign up here"}
           </a>
         </p>
