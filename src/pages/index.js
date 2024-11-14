@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Header from "@/components/Header";
+import BusquedaInsumos from "@/components/BusquedaInsumos";
+import Button from "@/components/Button";
 
 export default function Home() {
   return (
-    <div className="bg-green-400 h-screen">
-      <h1 className="text-5xl text-green-50">Hola Mundo</h1>
-    </div>
+    <>
+      <Header />
+      <BusquedaInsumos />
+      <Button />
+    </>
   );
 }
