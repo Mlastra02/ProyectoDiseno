@@ -1,4 +1,3 @@
-// src/pages/index.js
 import Head from "next/head";
 import BusquedaInsumos from "../components/BusquedaInsumos";
 import FormularioContacto from "../components/FormularioContacto";
