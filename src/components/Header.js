@@ -7,7 +7,9 @@ function Header() {
   return (
     <header className="bg-green-600 p-4 text-white shadow-md">
       <div className="mx-auto flex justify-between items-center">
-        <h1 className="text-3xl font-bold">{translations[language].welcome}</h1>
+        <h1 className="text-3xl font-bold">
+          {translations[language].pageName}
+        </h1>
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
