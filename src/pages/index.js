@@ -10,11 +10,11 @@ export default function Home() {
     <LanguageProvider>
       <div className="min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-100 flex flex-col">
         <Header />
-        <div className="flex-grow flex flex-col items-center justify-center p-4 space-y-6">
+        <main className="flex-grow flex flex-col items-center justify-center p-4 space-y-6">
           <BusquedaInsumos />
-        </div>
+          <Button />
+        </main>
       </div>
-      {/* <Button /> */}
     </LanguageProvider>
   );
 }

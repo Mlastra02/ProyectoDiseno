@@ -1,7 +1,9 @@
+import { useLanguage } from "@/context/LenguageContext";
 function Button() {
+  const { language, translations } = useLanguage();
   return (
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Button
+    <button className="mt-8 px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-300">
+      {translations[language].cerrarSesionBoton}
     </button>
   );
 }
