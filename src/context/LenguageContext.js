@@ -10,10 +10,16 @@ export function LanguageProvider({ children }) {
     setLanguage,
     translations: {
       es: {
-        pageName: "Proyecto de Diseño",
+        nombrePagina: "Proyecto de Diseño",
+        tituloBusquedaAlimentos: "Búsqueda de Insumos Alimentarios",
+        placeholderBusquedaAlimentos: "Buscar insumo (ej. Arroz, Frijoles)",
+        sinResultados: "No hay resultados",
       },
       en: {
-        pageName: "Design Project",
+        nombrePagina: "Design Project",
+        tituloBusquedaAlimentos: "Food Supplies Search",
+        placeholderBusquedaAlimentos: "Search for supply (e.g., Rice, Beans)",
+        sinResultados: "No results",
       },
     },
   };

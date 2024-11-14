@@ -1,0 +1,66 @@
+{
+  "es": [
+    {
+      "id": 1,
+      "name": "Arroz",
+      "price": "$2.000",
+      "description": "Arroz blanco de grano largo"
+    },
+    {
+      "id": 2,
+      "name": "Frijoles",
+      "price": "$1.500",
+      "description": "Frijoles negros"
+    },
+    {
+      "id": 3,
+      "name": "Aceite de Oliva",
+      "price": "$15.000",
+      "description": "Aceite de oliva extra virgen de 1L"
+    },
+    {
+      "id": 4,
+      "name": "Azúcar",
+      "price": "$1.500",
+      "description": "Azúcar blanca refinada"
+    },
+    {
+      "id": 5,
+      "name": "Leche",
+      "price": "$1.000",
+      "description": "Leche entera en polvo"
+    }
+  ],
+  "en": [
+    {
+      "id": 1,
+      "name": "Rice",
+      "price": "$2.000",
+      "description": "Long grain white rice"
+    },
+    {
+      "id": 2,
+      "name": "Beans",
+      "price": "$1.500",
+      "description": "Black beans"
+    },
+    {
+      "id": 3,
+      "name": "Olive oil",
+      "price": "$15.000",
+      "description": "Extra virgin olive oil 1L"
+    },
+    {
+      "id": 4,
+      "name": "Sugar",
+      "price": "$1.500",
+      "description": "Refined white sugar"
+    },
+    {
+      "id": 5,
+      "name": "Milk",
+      "price": "$1.000",
+      "description": "Whole milk powder"
+    }
+  ]
+}

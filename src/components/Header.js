@@ -8,7 +8,7 @@ function Header() {
     <header className="bg-green-600 p-4 text-white shadow-md">
       <div className="mx-auto flex justify-between items-center">
         <h1 className="text-3xl font-bold">
-          {translations[language].pageName}
+          {translations[language].nombrePagina}
         </h1>
         <select
           value={language}
