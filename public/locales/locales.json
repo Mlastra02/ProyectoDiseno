@@ -1,0 +1,27 @@
+[
+    {
+      "name": "Local 1",
+      "latitude": -33.421393,
+      "longitude": -70.607651,
+      "csvFile": "local1.csv"
+    },
+    {
+      "name": "Local 2",
+      "latitude": -33.421075,
+      "longitude": -70.608643,
+      "csvFile": "local2.csv"
+    },
+    {
+      "name": "Local 3",
+      "latitude": -33.427985,
+      "longitude": -70.617448,
+      "csvFile": "local3.csv"
+    },
+    {
+      "name": "Local 4",
+      "latitude": -33.427873,
+      "longitude": -70.607609,
+      "csvFile": "local4.csv"
+    }
+  ]
+  

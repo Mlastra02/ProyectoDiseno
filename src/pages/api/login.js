@@ -1,9 +1,8 @@
 // src/pages/api/login.js
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import ExcelJS from 'exceljs';
 import path from 'path';
 import fs from 'fs';
+import csv from 'csv-parser';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -15,41 +14,43 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: 'Nombre de usuario y contraseña son requeridos' });
   }
 
-  const filePath = path.resolve(process.cwd(), 'usuarios.xlsx');
-  const workbook = new ExcelJS.Workbook();
+  const filePath = path.resolve(process.cwd(), 'usuarios.csv');
 
+  // Verificar que el archivo existe antes de intentar leerlo
   if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ message: 'Base de datos de usuarios no encontrada' });
+    return res.status(500).json({ message: 'Archivo de usuarios no encontrado' });
   }
 
-  await workbook.xlsx.readFile(filePath);
-  const worksheet = workbook.getWorksheet('Usuarios');
+  try {
+    const users = [];
+    const fileData = fs.readFileSync(filePath, 'utf8');  // Leer archivo sincrónicamente
 
-  if (!worksheet) {
-    return res.status(404).json({ message: 'Hoja de cálculo "Usuarios" no encontrada en el archivo Excel' });
-  }
+    // Parsear CSV manualmente
+    const lines = fileData.split('\n');
+    lines.forEach(line => {
+      const [csvUsername, csvPassword] = line.split(',');
+      if (csvUsername && csvPassword) {
+        users.push({ username: csvUsername.trim(), password: csvPassword.trim() });
+      }
+    });
 
-  let foundUser = null;
-  
-  // Recorrer las filas en la hoja de cálculo para encontrar el usuario
-  worksheet.eachRow((row) => {
-    const usernameCell = row.getCell(1).value; // Asumiendo que el nombre de usuario está en la primera columna
-    const passwordHashCell = row.getCell(2).value; // Asumiendo que el hash de la contraseña está en la segunda columna
+    // Buscar usuario
+    const user = users.find(u => u.username === username);
 
-    if (usernameCell === username) {
-      foundUser = { username: usernameCell, passwordHash: passwordHashCell };
+    if (!user) {
+      return res.status(400).json({ message: 'Usuario no encontrado' });
     }
-  });
 
-  if (!foundUser) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Contraseña incorrecta' });
+    }
+
+    // Respuesta exitosa
+    return res.status(200).json({ message: 'Inicio de sesión exitoso' });
+
+  } catch (error) {
+    console.error("Error inesperado:", error);
+    return res.status(500).json({ message: 'Error inesperado en el servidor' });
   }
-
-  const isMatch = await bcrypt.compare(password, foundUser.passwordHash);
-  if (!isMatch) {
-    return res.status(401).json({ message: 'Credenciales inválidas' });
-  }
-
-  const token = jwt.sign({ username: foundUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.status(200).json({ token, message: 'Inicio de sesión exitoso' });
 }
