@@ -1,6 +1,9 @@
 import { useLanguage } from "@/context/LenguageContext";
 import { useState } from "react";
 import insumosData from "@/data/insumosData.json";
+import Card from "./Card/Card";
+import CardHeader from "./Card/CardHeader";
+import CardContent from "./Card/CardContent";
 
 function BusquedaInsumos() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,18 +40,20 @@ function BusquedaInsumos() {
       </div>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-5">
         {(filteredItems.length > 0 ? filteredItems : insumos).map((item) => (
-          <div
+          <Card
             key={item.id}
             className="p-4 bg-white bg-opacity-90 rounded-lg shadow-md text-left hover:shadow-lg transition duration-300"
           >
-            <h3 className="text-xl font-semibold text-green-700">
+            <CardHeader className="text-xl font-semibold text-green-700">
               {item.name}
-            </h3>
-            <p className="text-md text-gray-600">{item.description}</p>
-            <p className="text-lg font-bold text-green-600 mt-5">
+            </CardHeader>
+            <CardContent className="text-md text-gray-600">
+              {item.description}
+            </CardContent>
+            <CardContent className="text-lg font-bold text-green-600 mt-5">
               {item.price}
-            </p>
-          </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
       {filteredItems.length === 0 && searchTerm && (
