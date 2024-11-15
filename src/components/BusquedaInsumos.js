@@ -1,9 +1,11 @@
 import { useLanguage } from "@/context/LenguageContext";
 import { useState } from "react";
 import insumosData from "@/data/insumosData.json";
-import Card from "./Card/Card";
-import CardHeader from "./Card/CardHeader";
-import CardContent from "./Card/CardContent";
+import Card from "@/components/Card/Card";
+import CardHeader from "@/components/Card/CardHeader";
+import CardContent from "@/components/Card/CardContent";
+import Titulo from "@/components/Titulo";
+import FormBox from "@/components/Form/FormBox";
 
 function BusquedaInsumos() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,10 +27,11 @@ function BusquedaInsumos() {
   };
 
   return (
-    <section className="w-full max-w-4xl p-8 px-4 text-center backdrop-blur-sm bg-white/70 rounded-xl shadow-lg">
-      <h2 className="text-3xl md:text-4xl font-bold mb-6 text-green-800">
+    <FormBox boxSize="max-w-4xl">
+      <Titulo className={"text-3xl md:text-4xl font-bold mb-6 text-green-800"}>
         {translate.tituloBusquedaAlimentos}
-      </h2>
+      </Titulo>
+
       <div className="mb-6 relative">
         <input
           type="text"
@@ -61,7 +64,7 @@ function BusquedaInsumos() {
           {translate.sinResultados} "{searchTerm}"
         </p>
       )}
-    </section>
+    </FormBox>
   );
 }
 
