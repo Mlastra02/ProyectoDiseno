@@ -11,7 +11,7 @@ function BusquedaInsumos() {
   const { language, translations } = useLanguage();
 
   const insumos = insumosData[language];
-
+  const translate = translations[language].homePage;
   const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchTerm(query);
@@ -27,12 +27,12 @@ function BusquedaInsumos() {
   return (
     <section className="w-full max-w-4xl p-8 px-4 text-center backdrop-blur-sm bg-white/70 rounded-xl shadow-lg">
       <h2 className="text-3xl md:text-4xl font-bold mb-6 text-green-800">
-        {translations[language].tituloBusquedaAlimentos}
+        {translate.tituloBusquedaAlimentos}
       </h2>
       <div className="mb-6 relative">
         <input
           type="text"
-          placeholder={translations[language].placeholderBusquedaAlimentos}
+          placeholder={translate.placeholderBusquedaAlimentos}
           value={searchTerm}
           onChange={handleSearch}
           className="pl-10 pr-4 py-2 w-full border-green-300 focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md"
@@ -58,7 +58,7 @@ function BusquedaInsumos() {
       </div>
       {filteredItems.length === 0 && searchTerm && (
         <p className="text-md text-red-400 mt-4">
-          {translations[language].sinResultados} "{searchTerm}"
+          {translate.sinResultados} "{searchTerm}"
         </p>
       )}
     </section>

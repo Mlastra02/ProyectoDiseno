@@ -10,18 +10,50 @@ export function LanguageProvider({ children }) {
     setLanguage,
     translations: {
       es: {
-        nombrePagina: "Proyecto de Diseño",
-        tituloBusquedaAlimentos: "Búsqueda de Insumos Alimentarios",
-        placeholderBusquedaAlimentos: "Buscar insumo (ej. Arroz, Frijoles)",
-        cerrarSesionBoton: "Cerrar Sesión",
-        sinResultados: "No hay resultados",
+        header: {
+          nombrePagina: "Proyecto de Diseño",
+        },
+        homePage: {
+          tituloBusquedaAlimentos: "Búsqueda de Insumos Alimentarios",
+          placeholderBusquedaAlimentos: "Buscar insumo (ej. Arroz, Frijoles)",
+          cerrarSesionBoton: "Cerrar Sesión",
+          sinResultados: "No hay resultados",
+        },
+        login: {
+          tituloIniciarSesion: "Iniciar Sesión",
+          placeholderNombreUsuario: "Nombre de usuario",
+          placeholderContrasena: "Contraseña",
+          iniciarSesionBoton: "Iniciar Sesión",
+        },
+        register: {
+          tituloRegistro: "Registro",
+          placeholderNombreUsuario: "Nombre de usuario",
+          placeholderContrasena: "Contraseña",
+          registroBoton: "Registrarse",
+        },
       },
       en: {
-        nombrePagina: "Design Project",
-        tituloBusquedaAlimentos: "Food Supplies Search",
-        placeholderBusquedaAlimentos: "Search for supply (e.g., Rice, Beans)",
-        cerrarSesionBoton: "Logout",
-        sinResultados: "No results",
+        header: {
+          nombrePagina: "Design Project",
+        },
+        homePage: {
+          tituloBusquedaAlimentos: "Food Supplies Search",
+          placeholderBusquedaAlimentos: "Search for supply (e.g., Rice, Beans)",
+          cerrarSesionBoton: "Logout",
+          sinResultados: "No results",
+        },
+        login: {
+          tituloIniciarSesion: "Login",
+          placeholderNombreUsuario: "Username",
+          placeholderContrasena: "Password",
+          iniciarSesionBoton: "Login",
+        },
+        register: {
+          tituloRegistro: "Register",
+          placeholderNombreUsuario: "Username",
+          placeholderContrasena: "Password",
+          registroBoton: "Register",
+        },
       },
     },
   };
