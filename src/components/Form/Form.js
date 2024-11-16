@@ -23,8 +23,8 @@ function Form({ textUsername, textPassword, textButton }) {
           id="username"
           placeholder={textUsername}
           // value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="pl-10 pr-4 py-2 w-full border-green-300 focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md"
+          // onChange={(e) => setUsername(e.target.value)}
+          className="pl-10 pr-4 py-2 w-full text-black rounded-md"
         />
       </div>
       <div className="relative">
@@ -49,8 +49,8 @@ function Form({ textUsername, textPassword, textButton }) {
           id="password"
           placeholder={textPassword}
           // value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="pl-10 pr-4 py-2 w-full border-green-300 focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md"
+          // onChange={(e) => setPassword(e.target.value)}
+          className="pl-10 pr-4 py-2 w-full text-black rounded-md"
         />
       </div>
       <button
