@@ -6,12 +6,17 @@ import Button from "@/components/Button";
 import Main from "@/components/Main";
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/login");
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-100 flex flex-col">
       <Header />
       <Main>
         <BusquedaInsumos />
-        <Button />
+        <Button onClick={handleClick} />
       </Main>
     </div>
   );

@@ -1,9 +1,12 @@
 import { useLanguage } from "@/context/LenguageContext";
-function Button() {
+function Button({ onClick }) {
   const { language, translations } = useLanguage();
   const translate = translations[language].homePage;
   return (
-    <button className="mt-8 px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-300">
+    <button
+      className="mt-8 px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-300"
+      onClick={onClick}
+    >
       {translate.cerrarSesionBoton}
     </button>
   );
