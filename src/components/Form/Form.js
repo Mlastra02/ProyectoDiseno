@@ -1,6 +1,13 @@
-function Form({ textUsername, textPassword, textButton }) {
+function Form({
+  textUsername,
+  textPassword,
+  textButton,
+  handleSubmit,
+  handleChangeUserName,
+  handleChangePassword,
+}) {
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="relative">
         <label htmlFor="username" className="absolute left-3 top-2 ">
           <svg
@@ -20,10 +27,11 @@ function Form({ textUsername, textPassword, textButton }) {
         </label>
         <input
           type="text"
+          name="username"
           id="username"
           placeholder={textUsername}
           // value={username}
-          // onChange={(e) => setUsername(e.target.value)}
+          onChange={handleChangeUserName}
           className="pl-10 pr-4 py-2 w-full text-black rounded-md"
         />
       </div>
@@ -47,9 +55,10 @@ function Form({ textUsername, textPassword, textButton }) {
         <input
           type="password"
           id="password"
+          name="password"
           placeholder={textPassword}
           // value={password}
-          // onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChangePassword}
           className="pl-10 pr-4 py-2 w-full text-black rounded-md"
         />
       </div>

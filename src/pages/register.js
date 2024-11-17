@@ -5,9 +5,32 @@ import Form from "@/components/Form/Form";
 import { useLanguage } from "@/context/LenguageContext";
 import Main from "@/components/Main";
 import FormLink from "@/components/Form/FormLink";
+import { useState } from "react";
 
 export default function Login() {
   const { language, translations } = useLanguage();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [goodMessage, setGoodMessage] = useState("");
+  const [badMessage, setBadMessage] = useState("");
+
+  const handleChangeUserName = (e) => setUserName(e.target.value);
+  const handleChangePassword = (e) => setPassword(e.target.value);
+
+  const handleSubmit = async (e) => {
+    setBadMessage("");
+    setGoodMessage("");
+    e.preventDefault();
+    const res = await fetch("api/prueba", {
+      method: "POST",
+      body: JSON.stringify({ userName, password }),
+    });
+
+    const data = await res.json();
+    if (res.ok) return setGoodMessage(data.message);
+    setBadMessage(data.error);
+  };
+
   const tarnslate = translations[language].register;
   return (
     <div className="bg-gradient-to-b from-green-200 via-green-300 to-green-100 min-h-screen flex flex-col">
@@ -23,12 +46,23 @@ export default function Login() {
             textUsername={tarnslate.placeholderNombreUsuario}
             textPassword={tarnslate.placeholderContrasena}
             textButton={tarnslate.registroBoton}
+            handleSubmit={handleSubmit}
+            handleChangeUserName={handleChangeUserName}
+            handleChangePassword={handleChangePassword}
           />
           <FormLink
             text={tarnslate.textoPregunta}
             href={"/login"}
             textLink={tarnslate.link}
           />
+          <p>
+            {goodMessage && (
+              <span className="text-green-800">{goodMessage}</span>
+            )}
+          </p>
+          <p>
+            {badMessage && <span className="text-red-800">{badMessage}</span>}
+          </p>
         </FormBox>
       </Main>
     </div>

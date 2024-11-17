@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": "68a2",
+      "userName": "admin",
+      "password": "$2a$08$VKrsqaGoAAqPzEYbZOEJneZS5.844.COlLZ4Wkgr7O7YVQiNURaS2"
+    },
+    {
+      "id": "6bf9",
+      "userName": "agustin",
+      "password": "$2a$08$a4SMek6tDvznzx5UiHKOeuKsSX2Eyp1QXI23lN2g2ogZH3bJsfBqK"
+    },
+    {
+      "id": "ff08",
+      "userName": "mlastra",
+      "password": "$2a$08$TJ8UqYBCTEo9LHaxH2mRMu9GgIVz3XR8Nakloius.XRzJAhGB4f1O"
+    },
+    {
+      "id": "c6cb",
+      "userName": "adsd",
+      "password": "$2a$08$0fO94xRM162.em5g2BlFt.kj./UDIyW9dkG.VodMg0Pr980xe4zqi"
+    },
+    {
+      "id": "1c8b",
+      "userName": "papa",
+      "password": "$2a$08$46XzUmmNuuhpWOTH.umEPemnbTANUIDHry.0Ge/I.8maYWWltr2EK"
+    },
+    {
+      "id": "1ead",
+      "userName": "mama",
+      "password": "$2a$08$KlE4DxMCKg.3Zyk7hKBtX.VprBC4xaUhODyh6a3yuVub.ACWuN1Tm"
+    },
+    {
+      "id": "285d",
+      "userName": "javi",
+      "password": "$2a$08$jV0cYCcQvhN1yw/JBeO8S.yRuK/znN4/BFkJFzJHD8ARp.8Zs29Xi"
+    },
+    {
+      "id": "7cf7",
+      "userName": "igna",
+      "password": "$2a$08$bm4jTsk9kVvhGUPAG59Uh.sOL9Jdp.FyEtynTLyCQbAgKffh8WY62"
+    }
+  ]
+}
