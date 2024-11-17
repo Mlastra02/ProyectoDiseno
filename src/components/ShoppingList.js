@@ -1,4 +1,3 @@
-// src/components/ShoppingList.js
 import { useState, useEffect } from 'react';
 
 export default function ShoppingList({ language = 'es', onSelectList }) {
@@ -7,31 +6,20 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
   const [itemQuantity, setItemQuantity] = useState(1);
   const [shoppingLists, setShoppingLists] = useState([]);
   const [currentList, setCurrentList] = useState([]);
-  const [selectedList, setSelectedList] = useState(null);
   const [editingListName, setEditingListName] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const storedLists = JSON.parse(localStorage.getItem(`shoppingLists_${token}`)) || [];
-      setShoppingLists(storedLists);
-    }
+    const storedLists = JSON.parse(sessionStorage.getItem('shoppingLists')) || [];
+    setShoppingLists(storedLists);
   }, []);
 
-  const addItemToList = async () => {
-    const normalizedItemName = itemName.trim().toLowerCase();
-    let isAvailable = false;
+  const saveListsToSession = (updatedLists) => {
+    sessionStorage.setItem('shoppingLists', JSON.stringify(updatedLists));
+  };
 
-    try {
-      const response = await fetch(`/api/checkAvailability?itemName=${encodeURIComponent(normalizedItemName)}`);
-      const data = await response.json();
-      isAvailable = data.available;
-    } catch (error) {
-      console.error("Error al verificar disponibilidad:", error);
-    }
-
-    if (!isAvailable) {
-      alert(language === 'es' ? 'El insumo no está disponible' : 'Item is not available');
+  const addItemToList = () => {
+    if (!itemName.trim()) {
+      alert(language === 'es' ? 'Por favor, ingrese un nombre de insumo' : 'Please enter an item name');
       return;
     }
 
@@ -41,39 +29,29 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
   };
 
   const saveList = () => {
-    if (!listName) {
+    if (!listName.trim()) {
       alert(language === 'es' ? 'Por favor, ingrese un nombre para la lista' : 'Please enter a list name');
       return;
     }
 
-    const token = localStorage.getItem("token");
-    if (token) {
-      let updatedLists;
-      if (editingListName) {
-        updatedLists = shoppingLists.map((list) =>
+    const updatedLists = editingListName
+      ? shoppingLists.map((list) =>
           list.name === editingListName ? { name: listName, items: currentList } : list
-        );
-      } else {
-        updatedLists = [...shoppingLists, { name: listName, items: currentList }];
-      }
-      setShoppingLists(updatedLists);
-      localStorage.setItem(`shoppingLists_${token}`, JSON.stringify(updatedLists));
-    }
+        )
+      : [...shoppingLists, { name: listName, items: currentList }];
+
+    setShoppingLists(updatedLists);
+    saveListsToSession(updatedLists);
 
     setListName('');
     setCurrentList([]);
     setEditingListName(null);
-    setSelectedList(null);
   };
 
   const handleDeleteList = (name) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const updatedLists = shoppingLists.filter((list) => list.name !== name);
-      setShoppingLists(updatedLists);
-      localStorage.setItem(`shoppingLists_${token}`, JSON.stringify(updatedLists));
-      setSelectedList(null);
-    }
+    const updatedLists = shoppingLists.filter((list) => list.name !== name);
+    setShoppingLists(updatedLists);
+    saveListsToSession(updatedLists);
   };
 
   const handleEditList = (list) => {
@@ -87,7 +65,7 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
   };
 
   return (
-    <div className="w-full max-w-2xl bg-gradient-to-br from-green-200 via-green-300 to-green-100 text-gray-900 rounded-lg shadow-lg p-6 mb-8">
+    <div className="w-full max-w-2xl bg-gradient-to-b from-green-200 via-green-300 to-green-100 text-gray-900 rounded-lg shadow-lg p-6 mb-8">
       <h2 className="text-3xl font-semibold text-green-800 mb-4 text-center">
         {language === 'es' ? 'Crear Lista de Compras' : 'Create Shopping List'}
       </h2>
@@ -96,7 +74,7 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
         placeholder={language === 'es' ? 'Nombre de la lista' : 'List name'}
         value={listName}
         onChange={(e) => setListName(e.target.value)}
-        className="w-full mb-4 p-3 border border-green-300 bg-white text-gray-800 placeholder-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+        className="w-full mb-4 p-3 border border-green-300 bg-white text-gray-800 placeholder-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
       />
       <div className="flex mb-4">
         <input
@@ -104,7 +82,7 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
           placeholder={language === 'es' ? 'Nombre del insumo' : 'Item name'}
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
-          className="flex-1 mr-2 p-3 border border-green-300 bg-white text-gray-800 placeholder-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="flex-1 mr-2 p-3 border border-green-300 bg-white text-gray-800 placeholder-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
         />
         <input
           type="number"
@@ -112,25 +90,24 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
           value={itemQuantity}
           onChange={(e) => setItemQuantity(Number(e.target.value))}
           min="1"
-          className="w-20 p-3 border border-green-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-20 p-3 border border-green-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
         />
         <button onClick={addItemToList} className="ml-2 px-4 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-300">
           {language === 'es' ? 'Agregar' : 'Add'}
         </button>
       </div>
 
-      {/* Lista de elementos agregados */}
       {currentList.length > 0 && (
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-green-700 mb-2">
             {language === 'es' ? 'Elementos en la lista' : 'Items in the list'}
           </h3>
-          <ul className="bg-green-100 bg-opacity-80 rounded-lg p-4">
+          <ul className="bg-green-100 bg-opacity-80 rounded-lg p-4 space-y-2">
             {currentList.map((item, index) => (
               <li key={index} className="flex justify-between text-green-800">
                 <span>{item.name} - {language === 'es' ? `Cantidad: ${item.quantity}` : `Quantity: ${item.quantity}`}</span>
-                <button onClick={() => handleDeleteItem(index)} className="text-red-400 hover:text-red-600">
-                  X
+                <button onClick={() => handleDeleteItem(index)} className="text-red-400 hover:text-red-600 transition">
+                  ✖
                 </button>
               </li>
             ))}
@@ -153,43 +130,29 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
       ) : (
         <div className="space-y-2">
           {shoppingLists.map((list) => (
-            <div key={list.name} className="flex justify-between items-center">
+            <div key={list.name} className="flex justify-between items-center bg-green-100 rounded-lg p-3 hover:shadow-lg transition">
               <span
                 onClick={() => onSelectList(list.items)}
-                className="cursor-pointer text-green-600 underline"
+                className="cursor-pointer text-green-600 font-semibold hover:underline"
               >
                 {list.name}
               </span>
               <div className="space-x-2">
                 <button
                   onClick={() => handleEditList(list)}
-                  className="px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition duration-300"
+                  className="px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
                 >
                   {language === 'es' ? 'Editar' : 'Edit'}
                 </button>
                 <button
                   onClick={() => handleDeleteList(list.name)}
-                  className="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
+                  className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                 >
                   {language === 'es' ? 'Eliminar' : 'Delete'}
                 </button>
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Mostrar elementos de la lista seleccionada */}
-      {selectedList && !editingListName && (
-        <div className="mt-4 bg-green-200 p-4 rounded-lg text-green-800">
-          <h3 className="text-lg font-semibold mb-2">{selectedList.name}</h3>
-          <ul>
-            {selectedList.items.map((item, index) => (
-              <li key={index}>
-                {item.name} - {language === 'es' ? `Cantidad: ${item.quantity}` : `Quantity: ${item.quantity}`}
-              </li>
-            ))}
-          </ul>
         </div>
       )}
     </div>

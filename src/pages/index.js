@@ -66,7 +66,7 @@ export default function Home() {
       </Head>
       <div className="min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-100 flex flex-col">
         <header className="bg-green-600 p-4 text-white shadow-md">
-          <div className="mx-auto flex justify-between items-center max-w-5xl">
+          <div className="mx-auto flex justify-between items-center max-w-7xl px-6">
             <h1 className="text-3xl font-bold">
               {language === "es" ? "Proyecto diseño" : "Project Design"}
             </h1>
@@ -89,8 +89,8 @@ export default function Home() {
           </div>
         </header>
         
-        <main className="flex-grow flex flex-col items-center justify-center p-4 space-y-6 max-w-5xl w-full mx-auto">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <main className="flex-grow flex flex-col items-center justify-center p-6 space-y-6 max-w-7xl w-full mx-auto">
+          <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-8">
             {/* Columna izquierda: Lista de Compras */}
             <div>
               <ShoppingList language={language} onSelectList={handleSelectList} />

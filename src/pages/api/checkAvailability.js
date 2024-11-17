@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   res.setHeader('Surrogate-Control', 'no-store');
 
   const normalizedItemName = itemName.trim().toLowerCase();
-  const localesPath = path.resolve(process.cwd(), 'locales');
+  const localesPath = path.resolve(process.cwd(), 'public', 'locales'); // Modificación aquí
   let isAvailable = false;
 
   try {

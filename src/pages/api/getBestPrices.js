@@ -2,82 +2,164 @@ import path from 'path';
 import fs from 'fs';
 import csvParser from 'csv-parser';
 
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radio de la Tierra en kilómetros
-  const dLat = (lat2 - lat1) * (Math.PI / 180);
-  const dLon = (lon2 - lon1) * (Math.PI / 180);
+const EARTH_RADIUS_KM = 6371;
+
+// Calcular la distancia en línea recta (Haversine)
+function calculateHaversineDistance(coord1, coord2) {
+  const [lon1, lat1] = coord1;
+  const [lon2, lat2] = coord2;
+  const toRad = (value) => (value * Math.PI) / 180;
+
+  const deltaLat = toRad(lat2 - lat1);
+  const deltaLon = toRad(lon2 - lon1);
+
   const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * (Math.PI / 180)) *
-      Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
+    Math.sin(deltaLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(deltaLon / 2) ** 2;
+
+  return 2 * EARTH_RADIUS_KM * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+// Función para normalizar texto eliminando tildes
+function normalizeString(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+// Leer CSV
+async function readCSV(filePath) {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    fs.createReadStream(filePath)
+      .pipe(csvParser())
+      .on('data', (data) => results.push(data))
+      .on('end', () => resolve(results))
+      .on('error', (error) => reject(error));
+  });
+}
+
+// Handler principal
 export default async function handler(req, res) {
-  const { shoppingList, maxDistance, userLocation } = req.body;
+  const { shoppingList, userLocation } = req.body;
 
   if (!shoppingList || !Array.isArray(shoppingList) || !userLocation) {
     return res.status(400).json({ message: 'Datos de entrada no válidos' });
   }
 
   try {
-    // Cargar locales.json desde la carpeta `public/locales`
     const localesPath = path.join(process.cwd(), 'public', 'locales', 'locales.json');
     const localesData = JSON.parse(fs.readFileSync(localesPath, 'utf-8'));
 
-    const bestPrices = {};
-    const notFoundItems = new Set(shoppingList.map(item => item.name.toLowerCase()));
-
-    for (const local of localesData) {
-      const distance = calculateDistance(
-        userLocation.latitude,
-        userLocation.longitude,
-        local.latitude,
-        local.longitude
+    // Filtrar locales dentro de un radio de 2 km
+    const nearbyLocales = localesData.filter((local) => {
+      const distance = calculateHaversineDistance(
+        [userLocation.longitude, userLocation.latitude],
+        [local.longitude, local.latitude]
       );
+      return distance <= 2;
+    });
 
-      if (distance > maxDistance) continue; // Filtrar locales fuera del rango
-
-      // Cargar el archivo CSV específico de cada local desde `public/locales`
-      const filePath = path.join(process.cwd(), 'public', 'locales', local.csvFile);
-      const results = [];
-
-      await new Promise((resolve, reject) => {
-        fs.createReadStream(filePath)
-          .pipe(csvParser())
-          .on('data', (data) => results.push(data))
-          .on('end', () => {
-            shoppingList.forEach((item) => {
-              const normalizedItemName = item.name.trim().toLowerCase();
-              const product = results.find(
-                (p) => p.name && p.name.trim().toLowerCase() === normalizedItemName
-              );
-              if (product) {
-                const price = parseFloat(product.price);
-                if (
-                  !bestPrices[item.name] ||
-                  bestPrices[item.name].price > price
-                ) {
-                  bestPrices[item.name] = {
-                    price,
-                    store: local.name,
-                    description: product.description,
-                  };
-                }
-                notFoundItems.delete(normalizedItemName);
-              }
-            });
-            resolve();
-          })
-          .on('error', (error) => reject(error));
+    if (nearbyLocales.length === 0) {
+      return res.status(200).json({
+        message: 'No se encontraron locales dentro de 2 km.',
+        combinations: [],
+        itemsNotFound: shoppingList.map((item) => item.name),
       });
     }
 
-    res.status(200).json({ bestPrices, notFoundItems: Array.from(notFoundItems) });
+    const itemOptions = {};
+    const itemsNotFound = [];
+
+    // Buscar productos en locales cercanos
+    await Promise.all(
+      shoppingList.map(async (item) => {
+        const options = [];
+
+        for (const local of nearbyLocales) {
+          const filePath = path.join(process.cwd(), 'public', 'locales', local.csvFile);
+          const products = await readCSV(filePath);
+
+          const product = products.find(
+            (p) => normalizeString(p.name) === normalizeString(item.name)
+          );
+
+          if (product) {
+            const price = parseFloat(product.price);
+            const distance = calculateHaversineDistance(
+              [userLocation.longitude, userLocation.latitude],
+              [local.longitude, local.latitude]
+            );
+
+            options.push({
+              store: local.name,
+              price,
+              description: product.description,
+              distance,
+            });
+          }
+        }
+
+        if (options.length > 0) {
+          itemOptions[item.name] = options;
+        } else {
+          itemsNotFound.push(item.name);
+        }
+      })
+    );
+
+    // Generar combinaciones
+    const combinations = [];
+    function generateCombinations(index, combination, totalCost, totalDistance) {
+      if (index === shoppingList.length) {
+        combinations.push({
+          totalCost: parseFloat(totalCost.toFixed(2)),
+          totalDistance: parseFloat(totalDistance.toFixed(2)),
+          items: combination,
+        });
+        return;
+      }
+
+      const itemName = shoppingList[index].name;
+      const options = itemOptions[itemName] || [];
+      if (options.length === 0) {
+        generateCombinations(index + 1, [...combination, null], totalCost, totalDistance);
+      } else {
+        options.forEach((option) => {
+          generateCombinations(
+            index + 1,
+            [...combination, option],
+            totalCost + option.price,
+            totalDistance + option.distance
+          );
+        });
+      }
+    }
+
+    generateCombinations(0, [], 0, 0);
+
+    // Seleccionar las mejores opciones
+    const lowestCostOption = combinations.reduce((a, b) => (a.totalCost < b.totalCost ? a : b));
+    const shortestDistanceOption = combinations.reduce((a, b) =>
+      a.totalDistance < b.totalDistance ? a : b
+    );
+    const balancedOption = combinations.reduce((a, b) =>
+      a.totalCost + a.totalDistance < b.totalCost + b.totalDistance ? a : b
+    );
+
+    // Asegurar que las opciones sean únicas
+    const uniqueOptions = [lowestCostOption, shortestDistanceOption, balancedOption].filter(
+      (option, index, self) =>
+        self.findIndex((o) => o.totalCost === option.totalCost && o.totalDistance === option.totalDistance) === index
+    );
+
+    res.status(200).json({
+      combinations: uniqueOptions,
+      itemsNotFound,
+    });
   } catch (error) {
-    console.error("Error al procesar archivos CSV:", error);
-    res.status(500).json({ message: 'Error al procesar los archivos de locales' });
+    console.error('Error procesando los datos:', error);
+    res.status(500).json({ message: 'Error interno del servidor' });
   }
 }

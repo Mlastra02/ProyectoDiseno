@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.25.7",
+    "@turf/turf": "^7.1.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "csv-parser": "^3.0.0",
@@ -17,6 +18,8 @@
     "file-saver": "^2.0.5",
     "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
+    "mapbox-gl": "^3.8.0",
     "next": "^14.2.14",
     "proyectomini": "file:",
     "proyectomini-main": "file:",
@@ -27,7 +30,11 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "npm-force-resolutions": "^0.0.10",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13"
+  },
+  "resolutions": {
+    "lodash.template": ">=4.5.0"
   }
 }

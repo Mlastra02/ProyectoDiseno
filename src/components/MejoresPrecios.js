@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function MejoresPrecios({ bestPrices, notFoundItems, language = 'es' }) {
+export default function MejoresPrecios({ items = [], notFoundItems = [], language = 'es' }) {
   const translations = {
     es: {
       title: 'Mejores Precios por Local',
@@ -22,38 +22,44 @@ export default function MejoresPrecios({ bestPrices, notFoundItems, language = '
 
   const t = translations[language];
 
-  // Agrupar los productos por tienda donde es más barato
+  // Agrupar productos por tienda
   const productsByStore = {};
-  Object.entries(bestPrices).forEach(([productName, details]) => {
-    if (!productsByStore[details.store]) {
-      productsByStore[details.store] = [];
+  items.forEach((item) => {
+    if (item && item.store) { // Validar que el item y la propiedad store existan
+      if (!productsByStore[item.store]) {
+        productsByStore[item.store] = [];
+      }
+      productsByStore[item.store].push({
+        name: item.name || 'Producto desconocido', // Validar nombre
+        price: item.price || 0.0, // Usar precio predeterminado si falta
+        description: item.description || t.noResults, // Usar descripción predeterminada
+      });
+    } else {
+      console.warn('Item inválido o sin tienda:', item); // Registrar advertencias
     }
-    productsByStore[details.store].push({
-      name: productName,
-      price: details.price,
-      description: details.description,
-    });
   });
 
   return (
-    <div className="w-full max-w-5xl bg-gradient-to-b from-green-200 via-green-300 to-green-100 text-gray-900 rounded-lg shadow-lg p-6 mt-8">
-      <h2 className="text-3xl font-semibold text-center text-green-800 mb-6">{t.title}</h2>
-      
+    <div className="w-full">
       {Object.keys(productsByStore).length === 0 ? (
         <p className="text-center text-gray-500">{t.noResults}</p>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {Object.entries(productsByStore).map(([store, products], index) => (
             <div key={index} className="bg-green-100 p-4 rounded-lg shadow-md">
-              <h3 className="text-2xl font-semibold text-green-700 mb-4">
+              <h3 className="text-md font-semibold text-green-700 mb-2">
                 {t.store}: {store}
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1">
                 {products.map((item, idx) => (
-                  <li key={idx} className="mb-2">
-                    <h4 className="text-lg font-semibold text-green-800">{item.name}</h4>
-                    <p className="text-sm text-green-600">{t.description}: {item.description}</p>
-                    <p className="text-md font-semibold text-green-700">{t.price}: ${item.price.toFixed(2)}</p>
+                  <li key={idx} className="mb-1">
+                    <h4 className="text-sm font-semibold text-green-800">{item.name}</h4>
+                    <p className="text-xs text-green-600">
+                      {t.description}: {item.description}
+                    </p>
+                    <p className="text-sm font-semibold text-green-700">
+                      {t.price}: ${item.price.toFixed(2)}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -61,14 +67,12 @@ export default function MejoresPrecios({ bestPrices, notFoundItems, language = '
           ))}
         </div>
       )}
-
-      {/* Mostrar productos no encontrados */}
       {notFoundItems && notFoundItems.length > 0 && (
-        <div className="mt-8 text-center text-red-500">
-          <h3 className="text-2xl font-semibold mb-4">{t.notFound}</h3>
+        <div className="mt-4 text-center text-red-500">
+          <h3 className="text-md font-semibold mb-2">{t.notFound}</h3>
           <ul>
             {notFoundItems.map((item, index) => (
-              <li key={index} className="text-lg">{item}</li>
+              <li key={index} className="text-sm">{item}</li>
             ))}
           </ul>
         </div>
