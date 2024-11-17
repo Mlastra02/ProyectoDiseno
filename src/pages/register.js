@@ -11,15 +11,15 @@ export default function Login() {
   const { language, translations } = useLanguage();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [goodMessage, setGoodMessage] = useState("");
-  const [badMessage, setBadMessage] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleChangeUserName = (e) => setUserName(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
 
   const handleSubmit = async (e) => {
-    setBadMessage("");
-    setGoodMessage("");
+    setError("");
+    setMessage("");
     e.preventDefault();
     const res = await fetch("api/prueba", {
       method: "POST",
@@ -27,8 +27,10 @@ export default function Login() {
     });
 
     const data = await res.json();
-    if (res.ok) return setGoodMessage(data.message);
-    setBadMessage(data.error);
+    if (res.ok) {
+      setMessage(data.message);
+    }
+    setError(data.error);
   };
 
   const tarnslate = translations[language].register;
@@ -56,12 +58,8 @@ export default function Login() {
             textLink={tarnslate.link}
           />
           <p>
-            {goodMessage && (
-              <span className="text-green-800">{goodMessage}</span>
-            )}
-          </p>
-          <p>
-            {badMessage && <span className="text-red-800">{badMessage}</span>}
+            {message && <span className="text-green-800">{message}</span>}
+            {error && <span className="text-red-800">{error}</span>}
           </p>
         </FormBox>
       </Main>
