@@ -6,19 +6,34 @@ import { useLanguage } from "@/context/LenguageContext";
 import Main from "@/components/Main";
 import FormLink from "@/components/Form/FormLink";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const { language, translations } = useLanguage();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const router = useRouter();
   const tarnslate = translations[language].login;
 
   const handleChangeUserName = (e) => setUserName(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setError("");
+    setMessage("");
     e.preventDefault();
-    console.log(userName, password);
+    const res = await fetch("api/pruebaLogin", {
+      method: "POST",
+      body: JSON.stringify({ userName, password }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      router.push("/");
+    }
+    setError(data.error);
   };
   return (
     <div className="bg-gradient-to-b from-green-200 via-green-300 to-green-100 min-h-screen flex flex-col">
@@ -43,6 +58,10 @@ export default function Login() {
             href={"/register"}
             textLink={tarnslate.link}
           />
+          <p>
+            {message && <span className="text-green-800">{message}</span>}
+            {error && <span className="text-red-800">{error}</span>}
+          </p>
         </FormBox>
       </Main>
     </div>
