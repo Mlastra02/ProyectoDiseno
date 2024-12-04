@@ -22,20 +22,17 @@ export default function MejoresPrecios({ items = [], notFoundItems = [], languag
 
   const t = translations[language];
 
-  // Agrupar productos por tienda
   const productsByStore = {};
   items.forEach((item) => {
-    if (item && item.store) { // Validar que el item y la propiedad store existan
+    if (item && item.store) {
       if (!productsByStore[item.store]) {
         productsByStore[item.store] = [];
       }
       productsByStore[item.store].push({
-        name: item.name || 'Producto desconocido', // Validar nombre
-        price: item.price || 0.0, // Usar precio predeterminado si falta
-        description: item.description || t.noResults, // Usar descripción predeterminada
+        name: item.name || 'Producto desconocido',
+        price: item.price || 0.0,
+        description: item.description || t.noResults,
       });
-    } else {
-      console.warn('Item inválido o sin tienda:', item); // Registrar advertencias
     }
   });
 
@@ -67,7 +64,7 @@ export default function MejoresPrecios({ items = [], notFoundItems = [], languag
           ))}
         </div>
       )}
-      {notFoundItems && notFoundItems.length > 0 && (
+      {notFoundItems.length > 0 && (
         <div className="mt-4 text-center text-red-500">
           <h3 className="text-md font-semibold mb-2">{t.notFound}</h3>
           <ul>

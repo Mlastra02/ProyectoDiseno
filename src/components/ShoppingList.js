@@ -17,13 +17,24 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
     sessionStorage.setItem('shoppingLists', JSON.stringify(updatedLists));
   };
 
+  const normalizeString = (str) => {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  };
+
   const addItemToList = () => {
     if (!itemName.trim()) {
       alert(language === 'es' ? 'Por favor, ingrese un nombre de insumo' : 'Please enter an item name');
       return;
     }
 
-    setCurrentList([...currentList, { name: itemName, quantity: itemQuantity }]);
+    setCurrentList([
+      ...currentList,
+      { name: normalizeString(itemName), quantity: itemQuantity },
+    ]);
     setItemName('');
     setItemQuantity(1);
   };
@@ -132,7 +143,14 @@ export default function ShoppingList({ language = 'es', onSelectList }) {
           {shoppingLists.map((list) => (
             <div key={list.name} className="flex justify-between items-center bg-green-100 rounded-lg p-3 hover:shadow-lg transition">
               <span
-                onClick={() => onSelectList(list.items)}
+                onClick={() =>
+                  onSelectList(
+                    list.items.map((item) => ({
+                      ...item,
+                      name: normalizeString(item.name),
+                    }))
+                  )
+                }
                 className="cursor-pointer text-green-600 font-semibold hover:underline"
               >
                 {list.name}

@@ -39,11 +39,12 @@ export default function Map({ onNearbyLocal, selectedOption }) {
 
       const highlightedIcon = new L.DivIcon({
         className: 'highlighted-icon',
-        html: `<div style="transform: scale(1.2);">
-                  <img src="/locales/tienda.png" style="width: 35px; height: 35px;" />
-               </div>`,
-        iconSize: [35, 35],
-        iconAnchor: [17, 35],
+        html: `
+          <div style="transform: scale(1.4); filter: hue-rotate(180deg) brightness(1.2);">
+            <img src="/locales/tienda.png" style="width: 40px; height: 40px;" />
+          </div>`,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
       });
 
       setUserLocationIcon(userIcon);

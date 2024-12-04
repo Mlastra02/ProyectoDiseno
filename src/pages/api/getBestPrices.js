@@ -20,15 +20,14 @@ function calculateHaversineDistance(coord1, coord2) {
   return 2 * EARTH_RADIUS_KM * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-// Función para normalizar texto eliminando tildes
 function normalizeString(str) {
   return str
-    .normalize('NFD')
+    ?.normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase();
+    .toLowerCase()
+    .trim();
 }
 
-// Leer CSV
 async function readCSV(filePath) {
   return new Promise((resolve, reject) => {
     const results = [];
@@ -40,7 +39,6 @@ async function readCSV(filePath) {
   });
 }
 
-// Handler principal
 export default async function handler(req, res) {
   const { shoppingList, userLocation } = req.body;
 
@@ -52,7 +50,6 @@ export default async function handler(req, res) {
     const localesPath = path.join(process.cwd(), 'public', 'locales', 'locales.json');
     const localesData = JSON.parse(fs.readFileSync(localesPath, 'utf-8'));
 
-    // Filtrar locales dentro de un radio de 2 km
     const nearbyLocales = localesData.filter((local) => {
       const distance = calculateHaversineDistance(
         [userLocation.longitude, userLocation.latitude],
@@ -72,7 +69,6 @@ export default async function handler(req, res) {
     const itemOptions = {};
     const itemsNotFound = [];
 
-    // Buscar productos en locales cercanos
     await Promise.all(
       shoppingList.map(async (item) => {
         const options = [];
@@ -93,9 +89,10 @@ export default async function handler(req, res) {
             );
 
             options.push({
+              name: product.name,
               store: local.name,
               price,
-              description: product.description,
+              description: product.description || 'Descripción no disponible',
               distance,
             });
           }
@@ -109,7 +106,6 @@ export default async function handler(req, res) {
       })
     );
 
-    // Generar combinaciones
     const combinations = [];
     function generateCombinations(index, combination, totalCost, totalDistance) {
       if (index === shoppingList.length) {
@@ -139,7 +135,7 @@ export default async function handler(req, res) {
 
     generateCombinations(0, [], 0, 0);
 
-    // Seleccionar las mejores opciones
+    // Seleccionar las tres combinaciones principales
     const lowestCostOption = combinations.reduce((a, b) => (a.totalCost < b.totalCost ? a : b));
     const shortestDistanceOption = combinations.reduce((a, b) =>
       a.totalDistance < b.totalDistance ? a : b
@@ -148,10 +144,12 @@ export default async function handler(req, res) {
       a.totalCost + a.totalDistance < b.totalCost + b.totalDistance ? a : b
     );
 
-    // Asegurar que las opciones sean únicas
     const uniqueOptions = [lowestCostOption, shortestDistanceOption, balancedOption].filter(
       (option, index, self) =>
-        self.findIndex((o) => o.totalCost === option.totalCost && o.totalDistance === option.totalDistance) === index
+        self.findIndex(
+          (o) =>
+            o.totalCost === option.totalCost && o.totalDistance === option.totalDistance
+        ) === index
     );
 
     res.status(200).json({
