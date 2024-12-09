@@ -5,19 +5,38 @@ import { MdPerson, MdLock } from "react-icons/md";
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validaciones en el cliente
+    if (!username || !password || !confirmPassword) {
+      setMessage("Todos los campos son requeridos.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(username)) {
+      setMessage("Correo electrónico inválido.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // Llamada a la API
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, confirmPassword }),
       });
 
       const data = await res.json();
@@ -46,8 +65,8 @@ export default function Register() {
           <div className="relative">
             <MdPerson className="absolute left-3 top-3" size={24} />
             <input
-              type="text"
-              placeholder="Nombre de usuario"
+              type="email"
+              placeholder="Correo electrónico"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full pl-10 pr-4 py-3 bg-green-50 text-black placeholder-black border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -60,6 +79,16 @@ export default function Register() {
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-green-50 text-black placeholder-black border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div className="relative">
+            <MdLock className="absolute left-3 top-3" size={24} />
+            <input
+              type="password"
+              placeholder="Confirmar contraseña"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full pl-10 pr-4 py-3 bg-green-50 text-black placeholder-black border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>

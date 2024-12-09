@@ -1,33 +1,63 @@
-// src/pages/protected.js
-import { verifyToken } from '@/lib/auth'; // Importa la función verifyToken
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function ProtectedPage() {
-  const [username, setUsername] = useState(null);
+export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    async function checkAuth() {
-      const res = await fetch('/api/me');
-      if (res.ok) {
-        const data = await res.json();
-        setUsername(data.username);
-      } else {
-        router.push('/login'); // Redirige al login si no está autenticado
-      }
-    }
-    checkAuth();
-  }, []);
+  const handleLogin = async () => {
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
 
-  if (!username) {
-    return <p>Cargando...</p>;
-  }
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.message);
+        return;
+      }
+
+      const { sessionId } = await res.json();
+      localStorage.setItem('token', sessionId); // Guardar el sessionId
+      router.push('/');
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      setError('Error inesperado. Por favor, inténtalo de nuevo.');
+    }
+  };
 
   return (
-    <div>
-      <h1>Bienvenido, {username}</h1>
-      <p>Esta es una página protegida.</p>
-    </div>
-  );
-}
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Iniciar Sesión</h2>
+        <div>
+          <label>Usuario:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+        <button
+          onClick={handleLogin}
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+        >
+          Iniciar Sesión
+        </button>
+      </div>
+   

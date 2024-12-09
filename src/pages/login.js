@@ -1,53 +1,68 @@
-// src/pages/login.js
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { MdPerson, MdLock } from "react-icons/md";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [language, setLanguage] = useState("es"); // Agregamos el estado para el idioma
+  const [language, setLanguage] = useState("es");
   const router = useRouter();
 
   useEffect(() => {
+    // Redirigir si el usuario ya está autenticado
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/");
+    }
+
     // Cargar el idioma almacenado en localStorage si existe
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setLanguage(storedLanguage);
     }
-  }, []);
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Guardar el idioma en localStorage
     localStorage.setItem("language", language);
 
-    // Lógica de autenticación
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
+    try {
+      // Llamada a la API de login
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: email, password }),
+      });
 
-    if (res.ok) {
+      // Manejo de errores de la API
+      if (!res.ok) {
+        const errorMessage =
+          language === "es"
+            ? "Error en la autenticación. Inténtalo de nuevo."
+            : "Authentication error. Please try again.";
+        throw new Error(errorMessage);
+      }
+
       const data = await res.json();
-      // Guardar el token en localStorage
-      localStorage.setItem("token", data.token);
+
+      // Guardar el sessionId como token
+      localStorage.setItem("token", data.sessionId);
+
       // Redirigir a la página principal
       router.push("/");
-    } else {
-      alert(
-        language === "es"
-          ? "Error en la autenticación. Inténtalo de nuevo."
-          : "Authentication error. Please try again."
-      );
+    } catch (error) {
+      alert(error.message);
     }
   };
 
   const handleLanguageChange = (e) => {
-    setLanguage(e.target.value);
-    localStorage.setItem("language", e.target.value);
+    const selectedLanguage = e.target.value;
+    setLanguage(selectedLanguage);
+    localStorage.setItem("language", selectedLanguage);
   };
 
   return (
@@ -60,68 +75,35 @@ export default function Login() {
         <div className="mb-4 text-center">
           <select
             id="language"
-            // value={language}
+            value={language}
             onChange={handleLanguageChange}
             className="bg-green-700 text-white py-1 px-2 rounded focus:outline-none"
           >
-            <option value="" disabled selected>
-              {language === "es" ? "Idioma" : "Language"}
-            </option>
             <option value="es">Español</option>
             <option value="en">English</option>
           </select>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
-            <label htmlFor="username" className="absolute left-3 top-2 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </label>
+            <MdPerson className="absolute left-3 top-3" size={24} />
             <input
-              type="text"
-              id="username"
-              placeholder={language === "es" ? "Nombre de usuario" : "Username"}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full py-3 px-10 bg-green-50 text-black placeholder-black rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              type="email"
+              id="email"
+              placeholder={language === "es" ? "Correo electrónico" : "Email"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-green-50 text-black placeholder-black border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="relative">
-            <label htmlFor="password" className="absolute left-3 top-2 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 4v4m0 4v8m4-4H8"
-                />
-              </svg>
-            </label>
+            <MdLock className="absolute left-3 top-3" size={24} />
             <input
               type="password"
               id="password"
               placeholder={language === "es" ? "Contraseña" : "Password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full py-3 px-10 bg-green-50 text-black placeholder-black rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full pl-10 pr-4 py-3 bg-green-50 text-black placeholder-black border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <button
