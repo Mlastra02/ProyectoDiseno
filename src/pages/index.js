@@ -12,6 +12,7 @@ export default function Home() {
   const [shoppingList, setShoppingList] = useState([]);
   const [selectedLocal, setSelectedLocal] = useState("local1");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,6 +22,15 @@ export default function Home() {
       router.push("/login");
     } else {
       setIsAuthenticated(true);
+
+      // Recuperar o generar un `userId` único para el usuario
+      let storedUserId = localStorage.getItem("userId");
+      if (!storedUserId) {
+        storedUserId = `${Date.now()}_${Math.random().toString(36).substring(2)}`;
+        localStorage.setItem("userId", storedUserId);
+      }
+      setUserId(storedUserId);
+
       const storedLanguage = localStorage.getItem("language");
       if (storedLanguage) {
         setLanguage(storedLanguage);
@@ -31,6 +41,7 @@ export default function Home() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("language");
+    localStorage.removeItem("userId");
     setIsAuthenticated(false);
     router.push("/login");
     window.location.reload();
@@ -66,7 +77,7 @@ export default function Home() {
         <header className="bg-green-600 p-4 text-white shadow-md">
           <div className="mx-auto flex justify-between items-center max-w-7xl px-6">
             <h1 className="text-3xl font-bold">
-              {language === "es" ? "Tu Lista Economica" : "Your Economic List"}
+              {language === "es" ? "Tu Lista Económica" : "Your Economic List"}
             </h1>
             <div className="flex items-center space-x-4">
               <select
@@ -93,6 +104,7 @@ export default function Home() {
               <ShoppingList
                 language={language}
                 onSelectList={setShoppingList}
+                sessionId={typeof window !== "undefined" ? localStorage.getItem("sessionId") : ""}
               />
             </div>
             <div>

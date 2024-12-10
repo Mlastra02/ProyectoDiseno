@@ -49,8 +49,9 @@ export default function Login() {
 
       const data = await res.json();
 
-      // Guardar el sessionId como token
+      // Guardar el sessionId y el token en localStorage
       localStorage.setItem("token", data.sessionId);
+      localStorage.setItem("sessionId", data.sessionId); // Aquí se guarda el sessionId
 
       // Redirigir a la página principal
       router.push("/");
