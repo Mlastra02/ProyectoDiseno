@@ -5,6 +5,7 @@ function Form({
   handleSubmit,
   handleChangeUserName,
   handleChangePassword,
+  children,
 }) {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -62,6 +63,7 @@ function Form({
           className="pl-10 pr-4 py-2 w-full text-black rounded-md"
         />
       </div>
+      {children}
       <button
         type="submit"
         className="w-full py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 transition duration-300"

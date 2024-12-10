@@ -6,16 +6,19 @@ import { useLanguage } from "@/context/LenguageContext";
 import Main from "@/components/Main";
 import FormLink from "@/components/Form/FormLink";
 import { useState } from "react";
+import FormInput from "@/components/Form/FormInput";
 
 export default function Login() {
   const { language, translations } = useLanguage();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
   const handleChangeUserName = (e) => setUserName(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
+  const handleChangeVerifyPassword = (e) => setVerifyPassword(e.target.value);
 
   const handleSubmit = async (e) => {
     setError("");
@@ -23,7 +26,7 @@ export default function Login() {
     e.preventDefault();
     const res = await fetch("api/register/register_api", {
       method: "POST",
-      body: JSON.stringify({ userName, password }),
+      body: JSON.stringify({ userName, password, verifyPassword }),
     });
 
     const data = await res.json();
@@ -51,7 +54,14 @@ export default function Login() {
             handleSubmit={handleSubmit}
             handleChangeUserName={handleChangeUserName}
             handleChangePassword={handleChangePassword}
-          />
+          >
+            <FormInput
+              id={"verifyPassword"}
+              type={"password"}
+              placeholder={tarnslate.placeholderVerificarContrasena}
+              handleChange={handleChangeVerifyPassword}
+            />
+          </Form>
           <FormLink
             text={tarnslate.textoPregunta}
             href={"/login"}

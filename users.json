@@ -1,24 +1,29 @@
 {
   "users": [
     {
-      "id": "4261",
+      "id": "a33d",
       "userName": "admin",
-      "password": "$2a$08$icZnspByqA0ZA541gcvNGObLrAJGByTDS2RwIKJZ.NZ3p1c6rfs/m"
+      "password": "$2a$08$Of.41E2sCfei.XIORYf.POcNvStAh61eoIjIsIMWbgy0xsGZHvLf2"
     },
     {
-      "id": "34b2",
+      "id": "ba01",
       "userName": "agustin",
-      "password": "$2a$08$712.rRwVEb0dubWoIW0enuE2f5rrByugA/DF18td1BykuxMfLA8OS"
+      "password": "$2a$08$Qhmk3SI6.s0XFmbN/IUKQOZuOaWSj7.OodGC1LxOkjXkmejskK/1e"
     },
     {
-      "id": "4eec",
-      "userName": "add",
-      "password": "$2a$08$8t0NgoO9VRN849wQ5fUmQOnX5SalSJp7KQok76xnYbRvo5EoKhk9O"
-    },
-    {
-      "id": "f45d",
+      "id": "74e2",
       "userName": "mlastra",
-      "password": "$2a$08$1rjIFnRGwz52Pi3heJcWRO08GrbKIYO.ac6pEz.HSyNTFHbDDekma"
+      "password": "$2a$08$sdO08RbN45OnOkyw1qTt4uB1EXU91HCy2B.w/6G6NdhFxVHKqNzp2"
+    },
+    {
+      "id": "d642",
+      "userName": "caco",
+      "password": "$2a$08$gRMMSOtGMF5uXkdmkZ2oX.yEu19kC6xwnMS8KmmSwXaAd7.jKd/S6"
+    },
+    {
+      "id": "b283",
+      "userName": "javi",
+      "password": "$2a$08$xFFTVfKydsNfktH8kw/8mOl5JlKxgpVgXKexwj56/XdNs.qTJEEzm"
     }
   ]
 }
