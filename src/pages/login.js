@@ -7,6 +7,8 @@ import Main from "@/components/Main";
 import FormLink from "@/components/Form/FormLink";
 import { useState } from "react";
 import { useRouter } from "next/router";
+// import { verifyToken } from "@/utils/token";
+import jwt from "jsonwebtoken";
 
 export default function Login() {
   const { language, translations } = useLanguage();
@@ -31,6 +33,8 @@ export default function Login() {
 
     const data = await res.json();
     if (res.ok) {
+      const token = data.token;
+      localStorage.setItem("token", token);
       router.push("/");
     }
     setError(data.error);

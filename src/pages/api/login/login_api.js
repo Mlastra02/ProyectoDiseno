@@ -1,4 +1,6 @@
-const bcryptjs = require("bcryptjs");
+import bcryptjs from "bcryptjs";
+// import { jw } from "jsonwebtoken";
+import { generateToken } from "@/utils/token";
 async function handlerLogin(req, res) {
   if (req.method === "POST") {
     const json = JSON.parse(req.body);
@@ -23,7 +25,10 @@ async function handlerLogin(req, res) {
       return res.status(400).json({ error: "contraseña incorrecta." });
     }
 
-    return res.status(200).json({ message: "Usuario logueado correctamente" });
+    const token = generateToken(userName);
+    return res
+      .status(200)
+      .json({ token, message: "Usuario logueado correctamente" });
   }
   return res.status(400).json({ error: "Método no permitido." });
 }
