@@ -66,7 +66,7 @@ function Form({
       {children}
       <button
         type="submit"
-        className="w-full py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 transition duration-300"
+        className="w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 transition duration-300"
       >
         {textButton}
       </button>
