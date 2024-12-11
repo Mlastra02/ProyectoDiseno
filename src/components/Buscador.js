@@ -7,7 +7,7 @@ import CardContent from "@/components/Card/CardContent";
 import Titulo from "@/components/Titulo";
 import FormBox from "@/components/Form/FormBox";
 
-function BusquedaInsumos() {
+function Buscador() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const { language, translations } = useLanguage();
@@ -68,4 +68,4 @@ function BusquedaInsumos() {
   );
 }
 
-export default BusquedaInsumos;
+export default Buscador;
