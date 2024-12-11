@@ -36,6 +36,15 @@ export function LanguageProvider({ children }) {
           textoPregunta: "¿Ya tienes una cuenta?",
           link: "Iniciar Sesión",
         },
+        shopingList: {
+          tituloListaCompra: "Crea tu lista de la compra",
+          textoAgregaProductos: "¡Agrega tus productos y no olvides nada!",
+          placeholderNombreLista: "Nombre de la lista",
+          placeholderAgregarProducto: "Agregar producto...",
+          textoAunNoHayProductos: "Aun no hay productos agregados",
+          textoBotonAgregar: "Agregar",
+          textoBotonGuardar: "Guardar",
+        },
       },
       en: {
         header: {
@@ -63,6 +72,15 @@ export function LanguageProvider({ children }) {
           registroBoton: "Register",
           textoPregunta: "Already have an account?",
           link: "Login",
+        },
+        shopingList: {
+          tituloListaCompra: "Create your shopping list",
+          textoAgregaProductos: "Add your products and don't forget anything!",
+          placeholderNombreLista: "List name",
+          placeholderAgregarProducto: "Add product...",
+          textoAunNoHayProductos: "No products added yet",
+          textoBotonAgregar: "Add",
+          textoBotonGuardar: "Save",
         },
       },
     },
