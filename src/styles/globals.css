@@ -1,0 +1,41 @@
+/* globals.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Fondo general de la página */
+body {
+    background-color: rgb(240, 245, 255);
+    color: rgb(20, 20, 70);
+}
+
+/* Fondo con un degradado */
+.bg-gradient-custom {
+    background: linear-gradient(to bottom right, rgb(30, 144, 255), rgb(255, 255, 255));
+}
+
+/* Fondo suave para secciones */
+.bg-soft-custom {
+    background-color: rgb(245, 250, 255);
+}
+
+/* Fondo de tarjeta */
+.bg-card-custom {
+    background-color: rgb(225, 240, 255);
+}
+
+/* Texto oscuro */
+.text-soft-dark {
+    color: rgb(20, 20, 70);
+}
+
+/* Texto claro */
+.text-soft-light {
+    color: rgb(255, 255, 255);
+}
+
+/* Bordes de entrada personalizados */
+.input-border-custom {
+    border: 2px solid rgb(30, 144, 255);
+    background-color: rgb(240, 248, 255);
+}

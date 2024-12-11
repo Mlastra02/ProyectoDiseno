@@ -1,0 +1,140 @@
+[
+  {
+    "name": "Local 1",
+    "latitude": -33.421393,
+    "longitude": -70.607651,
+    "csvFile": "local1.csv"
+  },
+  {
+    "name": "Local 2",
+    "latitude": -33.421075,
+    "longitude": -70.608643,
+    "csvFile": "local2.csv"
+  },
+  {
+    "name": "Local 3",
+    "latitude": -33.427985,
+    "longitude": -70.617448,
+    "csvFile": "local3.csv"
+  },
+  {
+    "name": "Local 4",
+    "latitude": -33.427873,
+    "longitude": -70.607609,
+    "csvFile": "local4.csv"
+  },
+  {
+    "name": "Local 5",
+    "latitude": -33.425493,
+    "longitude": -70.610345,
+    "csvFile": "local5.csv"
+  },
+  {
+    "name": "Local 6",
+    "latitude": -33.428873,
+    "longitude": -70.611873,
+    "csvFile": "local6.csv"
+  },
+  {
+    "name": "Local 7",
+    "latitude": -33.420983,
+    "longitude": -70.606547,
+    "csvFile": "local7.csv"
+  },
+  {
+    "name": "Local 8",
+    "latitude": -33.424312,
+    "longitude": -70.615634,
+    "csvFile": "local8.csv"
+  },
+  {
+    "name": "Local 9",
+    "latitude": -33.419543,
+    "longitude": -70.608731,
+    "csvFile": "local9.csv"
+  },
+  {
+    "name": "Local 10",
+    "latitude": -33.430221,
+    "longitude": -70.612845,
+    "csvFile": "local10.csv"
+  },
+  {
+    "name": "Local 11",
+    "latitude": -33.428193,
+    "longitude": -70.609542,
+    "csvFile": "local11.csv"
+  },
+  {
+    "name": "Local 12",
+    "latitude": -33.429321,
+    "longitude": -70.614329,
+    "csvFile": "local12.csv"
+  },
+  {
+    "name": "Local 13",
+    "latitude": -33.423845,
+    "longitude": -70.605478,
+    "csvFile": "local13.csv"
+  },
+  {
+    "name": "Local 14",
+    "latitude": -33.441293,
+    "longitude": -70.620451,
+    "csvFile": "local14.csv"
+  },
+  {
+    "name": "Local 15",
+    "latitude": -33.438212,
+    "longitude": -70.632874,
+    "csvFile": "local15.csv"
+  },
+  {
+    "name": "Local 16",
+    "latitude": -33.450342,
+    "longitude": -70.600123,
+    "csvFile": "local16.csv"
+  },
+  {
+    "name": "Local 17",
+    "latitude": -33.460985,
+    "longitude": -70.618456,
+    "csvFile": "local17.csv"
+  },
+  {
+    "name": "Local 18",
+    "latitude": -33.455876,
+    "longitude": -70.640983,
+    "csvFile": "local18.csv"
+  },
+  {
+    "name": "Local 19",
+    "latitude": -33.465894,
+    "longitude": -70.611324,
+    "csvFile": "local19.csv"
+  },
+  {
+    "name": "Local 20",
+    "latitude": -33.470321,
+    "longitude": -70.602913,
+    "csvFile": "local20.csv"
+  },
+  {
+    "name": "Local 21",
+    "latitude": -33.480654,
+    "longitude": -70.624512,
+    "csvFile": "local21.csv"
+  },
+  {
+    "name": "Local 22",
+    "latitude": -33.490732,
+    "longitude": -70.613412,
+    "csvFile": "local22.csv"
+  },
+  {
+    "name": "Local 23",
+    "latitude": -33.485123,
+    "longitude": -70.630321,
+    "csvFile": "local23.csv"
+  }
+]

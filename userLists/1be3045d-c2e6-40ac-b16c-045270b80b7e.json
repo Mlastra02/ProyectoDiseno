@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Lista",
+    "items": [
+      {
+        "name": "queso",
+        "quantity": 1
+      },
+      {
+        "name": "pan",
+        "quantity": 1
+      }
+    ]
+  }
+]
