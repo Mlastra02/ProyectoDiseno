@@ -60,7 +60,24 @@ export default function Login() {
               type={"password"}
               placeholder={tarnslate.placeholderVerificarContrasena}
               handleChange={handleChangeVerifyPassword}
-            />
+            >
+              <label htmlFor="password" className="absolute left-3 top-2 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 4v4m0 4v8m4-4H8"
+                  />
+                </svg>
+              </label>
+            </FormInput>
           </Form>
           <FormLink
             text={tarnslate.textoPregunta}
