@@ -19,13 +19,31 @@
             "name": "queso",
             "quantity": 1
           }
+        ],
+        "Lista 1": [
+          {
+            "name": "Carne",
+            "quantity": 1
+          },
+          {
+            "name": "lechuga",
+            "quantity": 4
+          }
         ]
       }
     },
     {
       "id": "74e2",
       "userName": "mlastra",
-      "password": "$2a$08$sdO08RbN45OnOkyw1qTt4uB1EXU91HCy2B.w/6G6NdhFxVHKqNzp2"
+      "password": "$2a$08$sdO08RbN45OnOkyw1qTt4uB1EXU91HCy2B.w/6G6NdhFxVHKqNzp2",
+      "lists": {
+        "Lista del super": [
+          {
+            "name": "leche",
+            "quantity": 1
+          }
+        ]
+      }
     },
     {
       "id": "d642",

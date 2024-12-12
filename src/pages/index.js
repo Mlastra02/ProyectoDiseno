@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import Main from "@/components/Main";
 import ListaCompra from "@/components/ListaCompra";
+import ListasRecientes from "@/components/ListasRecientes";
 
 export default function Home() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function Home() {
       <Main>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <ListaCompra />
+          <ListasRecientes userId={localStorage.getItem("userId")} />
         </div>
         <Button
           onClick={handleClick}
