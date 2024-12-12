@@ -129,8 +129,8 @@ function ListaCompra() {
           </Button>
         </div>
         {shadowMessage && (
-          <div className="mt-4 p-3 bg-green-100 text-green-700 rounded">
-            ¡Lista guardada exitosamente!
+          <div className="mt-4 p-2 text-green-700 rounded">
+            {translate.mensajeGuardado}
           </div>
         )}
       </div>
