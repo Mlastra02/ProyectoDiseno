@@ -42,6 +42,22 @@
             "name": "leche",
             "quantity": 1
           }
+        ],
+        "Lista 2": [
+          {
+            "name": "Leche",
+            "quantity": 3
+          },
+          {
+            "name": "Pan integral",
+            "quantity": 1
+          }
+        ],
+        "Lista 3": [
+          {
+            "name": "yogurt",
+            "quantity": 1
+          }
         ]
       }
     },

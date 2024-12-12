@@ -8,6 +8,7 @@ import ListasRecientes from "@/components/ListasRecientes";
 
 export default function Home() {
   const router = useRouter();
+  const [reloadTrigger, setReloadTrigger] = useState(0);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -20,13 +21,17 @@ export default function Home() {
     localStorage.removeItem("userId");
     router.push("/login");
   };
+
+  const handleListSaved = () => {
+    setReloadTrigger((prev) => prev + 1);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-100 flex flex-col">
       <Header />
       <Main>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <ListaCompra />
-          <ListasRecientes userId={localStorage.getItem("userId")} />
+          <ListaCompra onListSaved={handleListSaved} />
+          <ListasRecientes triggerReload={reloadTrigger} />
         </div>
         <Button
           onClick={handleClick}

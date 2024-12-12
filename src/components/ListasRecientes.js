@@ -3,11 +3,12 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import Titulo from "@/components/Titulo";
 import FormBox from "./Form/FormBox";
 
-const ListasRecientes = ({ userId }) => {
+const ListasRecientes = ({ triggerReload }) => {
   const [userLists, setUserLists] = useState(null); // Datos de las listas del usuario
   const [expandedList, setExpandedList] = useState(null); // Lista actualmente expandida
 
   useEffect(() => {
+    const userId = window.localStorage.getItem("userId");
     // Simular una solicitud al backend para obtener las listas del usuario
     const fetchUserLists = async () => {
       try {
@@ -33,7 +34,7 @@ const ListasRecientes = ({ userId }) => {
     };
 
     fetchUserLists();
-  }, [userId]);
+  }, [triggerReload]);
 
   // Alternar el menú desplegable
   const toggleList = (listName) => {

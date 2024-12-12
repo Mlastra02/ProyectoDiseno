@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LenguageContext";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 
-function ListaCompra() {
+function ListaCompra({ onListSaved }) {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
   const [newQuantity, setNewQuantity] = useState(1);
@@ -48,6 +48,10 @@ function ListaCompra() {
     if (res.ok) {
       setShadowMessage(true);
       setShowConfetti(true);
+
+      if (onListSaved) {
+        onListSaved();
+      }
       setTimeout(() => {
         setShadowMessage(false);
       }, 3000);
