@@ -1,3 +1,4 @@
+import { User, Lock } from "lucide-react";
 function Form({
   textUsername,
   textPassword,
@@ -9,22 +10,12 @@ function Form({
 }) {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
-      <div className="relative">
-        <label htmlFor="username" className="absolute left-3 top-2 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
+      <div className="relative items-center">
+        <label
+          htmlFor="username"
+          className="absolute left-3 top-2 text-gray-300"
+        >
+          <User size={20} />
         </label>
         <input
           type="text"
@@ -36,22 +27,12 @@ function Form({
           className="pl-10 pr-4 py-2 w-full text-black rounded-md"
         />
       </div>
-      <div className="relative">
-        <label htmlFor="password" className="absolute left-3 top-2 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 4v4m0 4v8m4-4H8"
-            />
-          </svg>
+      <div className="relative items-center">
+        <label
+          htmlFor="password"
+          className="absolute left-3 top-2 text-gray-300"
+        >
+          <Lock size={20} />
         </label>
         <input
           type="password"

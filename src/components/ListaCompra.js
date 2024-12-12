@@ -3,12 +3,43 @@ import FormInput from "@/components/Form/FormInput";
 import Titulo from "@/components/Titulo";
 import Button from "@/components/Button";
 import { useLanguage } from "@/context/LenguageContext";
+import { useState } from "react";
+import { Trash2 } from "lucide-react";
 
 function ListaCompra() {
+  const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState("");
+  const [newQuantity, setNewQuantity] = useState(1);
+  const [listName, setListName] = useState("");
   const { language, translations } = useLanguage();
   const translate = translations[language].shopingList;
+
+  const addItem = () => {
+    if (newItem.trim() !== "") {
+      setItems([...items, { name: newItem, quantity: newQuantity }]);
+      setNewItem("");
+      setNewQuantity(1);
+    }
+  };
+
+  const removeItem = (index) => {
+    const updatedItems = items.filter((_, i) => i !== index);
+    setItems(updatedItems);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      addItem();
+    }
+  };
+
+  const handleSave = () => {
+    setListName("");
+    console.log(items);
+    setItems([]);
+  };
   return (
-    <FormBox boxSize="w-2xl">
+    <FormBox boxSize="max-w-3xl">
       <Titulo className={"text-2xl md:text-3xl font-bold text-green-800"}>
         {translate.tituloListaCompra}
       </Titulo>
@@ -21,6 +52,8 @@ function ListaCompra() {
             type={"text"}
             id={"nombreLista"}
             placeholder={translate.placeholderNombreLista}
+            handleChange={(e) => setListName(e.target.value)}
+            value={listName}
           />
         </div>
         <div className="flex gap-2 justify-between">
@@ -28,26 +61,60 @@ function ListaCompra() {
             type={"text"}
             id={"producto"}
             placeholder={translate.placeholderAgregarProducto}
+            className={"w-64"}
+            handleChange={(e) => setNewItem(e.target.value)}
+            onKeyPress={handleKeyPress}
+            value={newItem}
           />
           <FormInput
             type={"number"}
             id={"cantidadProducto"}
             placeholder={"1"}
             min="1"
-            defaultValue="1"
             className={"w-20"}
+            handleChange={(e) => setNewQuantity(parseInt(e.target.value) || 1)}
+            value={newQuantity}
           />
-          <Button className={"bg-green-600 hover:bg-green-700"}>
+          <Button
+            onClick={addItem}
+            className={"bg-green-600 hover:bg-green-700"}
+          >
             {translate.textoBotonAgregar}
           </Button>
         </div>
         <div className="border rounded-md p-4 min-h-[100px] bg-slate-100">
-          <p className="text-center text-black/80">
-            {translate.textoAunNoHayProductos}
-          </p>
+          {items.length > 0 ? (
+            <>
+              <h3 className="text-black font-semibold text-left text-lg underline">
+                {listName}
+              </h3>
+              <ul className="space-y-2">
+                {items.map((item, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span className="text-black">
+                      {item.quantity}x {item.name}
+                    </span>
+                    <button
+                      onClick={() => removeItem(index)}
+                      className="p-2 text-gray-600 hover:text-red-600 hover:bg-slate-200 rounded-md"
+                    >
+                      <Trash2 size={24} className="h-4 w-4" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p className="text-center text-black/50">
+              {translate.textoAunNoHayProductos}
+            </p>
+          )}
         </div>
         <div className="w-full">
-          <Button className={"w-full bg-green-600 hover:bg-green-700"}>
+          <Button
+            className={"w-full bg-green-600 hover:bg-green-700"}
+            onClick={handleSave}
+          >
             {translate.textoBotonGuardar}
           </Button>
         </div>

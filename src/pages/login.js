@@ -26,6 +26,7 @@ export default function Login() {
     setError("");
     setMessage("");
     e.preventDefault();
+    console.log("userName", userName);
     const res = await fetch("api/login/login_api", {
       method: "POST",
       body: JSON.stringify({ userName, password }),

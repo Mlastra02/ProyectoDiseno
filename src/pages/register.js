@@ -7,6 +7,7 @@ import Main from "@/components/Main";
 import FormLink from "@/components/Form/FormLink";
 import { useState } from "react";
 import FormInput from "@/components/Form/FormInput";
+import { Lock } from "lucide-react";
 
 export default function Login() {
   const { language, translations } = useLanguage();
@@ -61,21 +62,11 @@ export default function Login() {
               placeholder={tarnslate.placeholderVerificarContrasena}
               handleChange={handleChangeVerifyPassword}
             >
-              <label htmlFor="password" className="absolute left-3 top-2 ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 4v4m0 4v8m4-4H8"
-                  />
-                </svg>
+              <label
+                htmlFor="password"
+                className="absolute left-3 top-2 text-gray-300"
+              >
+                <Lock size={20} />
               </label>
             </FormInput>
           </Form>

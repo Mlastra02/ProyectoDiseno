@@ -24,6 +24,21 @@
       "id": "b283",
       "userName": "javi",
       "password": "$2a$08$xFFTVfKydsNfktH8kw/8mOl5JlKxgpVgXKexwj56/XdNs.qTJEEzm"
+    },
+    {
+      "id": "5af8",
+      "userName": "jose",
+      "password": "$2a$08$jPWfAx8f3qr1u4BqvcxcVeggA0gBmysUuiZ7VNkFk.da3c1IRpoxq"
+    },
+    {
+      "id": "55b6",
+      "userName": "ignacio",
+      "password": "$2a$08$E3uLcdbo9F.SpKe.ko3FiOVppMFiwoErzhe57mSSkSIUpS4Jdozn2"
+    },
+    {
+      "id": "7fbf",
+      "userName": "pepe",
+      "password": "$2a$08$2FGKibXEEtqEEnlDxTHiJeJg7KIX7nIaRbhNTjj6BkSLDyV6XdtnS"
     }
   ]
 }
