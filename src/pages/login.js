@@ -35,7 +35,9 @@ export default function Login() {
     const data = await res.json();
     if (res.ok) {
       const token = data.token;
+      const userId = data.userId;
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
       router.push("/");
     }
     setError(data.error);

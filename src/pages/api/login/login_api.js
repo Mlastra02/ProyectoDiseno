@@ -26,9 +26,10 @@ async function handlerLogin(req, res) {
     }
 
     const token = generateToken(userName);
+    const userId = user.id;
     return res
       .status(200)
-      .json({ token, message: "Usuario logueado correctamente" });
+      .json({ token, message: "Usuario logueado correctamente", userId });
   }
   return res.status(400).json({ error: "Método no permitido." });
 }

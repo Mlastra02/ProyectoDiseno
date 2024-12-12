@@ -16,6 +16,7 @@ export default function Home() {
 
   const handleClick = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     router.push("/login");
   };
   return (
