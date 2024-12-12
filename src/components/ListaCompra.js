@@ -2,6 +2,7 @@ import FormBox from "@/components/Form/FormBox";
 import FormInput from "@/components/Form/FormInput";
 import Titulo from "@/components/Titulo";
 import Button from "@/components/Button";
+import Confetti from "@/components/Confetti";
 import { useLanguage } from "@/context/LenguageContext";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
@@ -11,6 +12,8 @@ function ListaCompra() {
   const [newItem, setNewItem] = useState("");
   const [newQuantity, setNewQuantity] = useState(1);
   const [listName, setListName] = useState("");
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [shadowMessage, setShadowMessage] = useState(false);
   const { language, translations } = useLanguage();
   const translate = translations[language].shopingList;
 
@@ -37,6 +40,13 @@ function ListaCompra() {
     setListName("");
     console.log(items);
     setItems([]);
+    setShowConfetti(true);
+    setShadowMessage(true);
+    setTimeout(() => {
+      setShowConfetti(false);
+      setShadowMessage(false);
+      console.log("Confetti oculto");
+    }, 3000);
   };
   return (
     <FormBox boxSize="max-w-3xl">
@@ -118,7 +128,13 @@ function ListaCompra() {
             {translate.textoBotonGuardar}
           </Button>
         </div>
+        {shadowMessage && (
+          <div className="mt-4 p-3 bg-green-100 text-green-700 rounded">
+            ¡Lista guardada exitosamente!
+          </div>
+        )}
       </div>
+      {showConfetti && <Confetti />}
     </FormBox>
   );
 }
