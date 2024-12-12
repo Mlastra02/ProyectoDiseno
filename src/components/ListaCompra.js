@@ -36,17 +36,24 @@ function ListaCompra() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const res = await fetch("api/lists/saveList_api", {
+      method: "POST",
+      body: JSON.stringify({
+        list: items,
+        userId: localStorage.getItem("userId"),
+        listName: listName,
+      }),
+    });
+    if (res.ok) {
+      setShadowMessage(true);
+      setShowConfetti(true);
+      setTimeout(() => {
+        setShadowMessage(false);
+      }, 3000);
+    }
     setListName("");
-    console.log(items);
     setItems([]);
-    setShowConfetti(true);
-    setShadowMessage(true);
-    setTimeout(() => {
-      setShowConfetti(false);
-      setShadowMessage(false);
-      console.log("Confetti oculto");
-    }, 3000);
   };
   return (
     <FormBox boxSize="max-w-3xl">
