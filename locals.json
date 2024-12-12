@@ -1,0 +1,231 @@
+{
+  "tiendas": [
+    {
+      "nombre": "Local 1",
+      "productos": [
+        {
+          "nombre": "Leche",
+          "precio": 1250,
+          "descripcion": "Leche entera fresca"
+        },
+        {
+          "nombre": "Pan",
+          "precio": 850,
+          "descripcion": "Pan de molde blanco"
+        },
+        {
+          "nombre": "Pollo",
+          "precio": 3500,
+          "descripcion": "Pechuga de pollo fresca"
+        },
+        {
+          "nombre": "Arroz",
+          "precio": 1800,
+          "descripcion": "Arroz grano largo"
+        }
+      ]
+    },
+    {
+      "nombre": "Local 2",
+      "productos": [
+        {
+          "nombre": "Huevos",
+          "precio": 2300,
+          "descripcion": "Huevos de campo"
+        },
+        {
+          "nombre": "Aceite",
+          "precio": 2750,
+          "descripcion": "Aceite de girasol"
+        },
+        { "nombre": "Tomate", "precio": 650, "descripcion": "Tomate fresco" },
+        { "nombre": "Yogurt", "precio": 1100, "descripcion": "Yogurt natural" }
+      ]
+    },
+    {
+      "nombre": "Local 3",
+      "productos": [
+        { "nombre": "Pollo", "precio": 4200, "descripcion": "Pollo entero" },
+        { "nombre": "Pasta", "precio": 1450, "descripcion": "Pasta de trigo" },
+        { "nombre": "Café", "precio": 3200, "descripcion": "Café molido" },
+        { "nombre": "Azúcar", "precio": 1200, "descripcion": "Azúcar blanca" }
+      ]
+    },
+    {
+      "nombre": "Local 4",
+      "productos": [
+        { "nombre": "Arroz", "precio": 2100, "descripcion": "Arroz integral" },
+        { "nombre": "Queso", "precio": 2850, "descripcion": "Queso fresco" },
+        {
+          "nombre": "Fideos",
+          "precio": 750,
+          "descripcion": "Fideos de semola"
+        },
+        { "nombre": "Sal", "precio": 450, "descripcion": "Sal de mesa" }
+      ]
+    },
+    {
+      "nombre": "Local 5",
+      "productos": [
+        {
+          "nombre": "Leche",
+          "precio": 1350,
+          "descripcion": "Leche descremada"
+        },
+        {
+          "nombre": "Carne molida",
+          "precio": 4500,
+          "descripcion": "Carne molida premium"
+        },
+        { "nombre": "Pan", "precio": 900, "descripcion": "Pan integral" },
+        { "nombre": "Tomate", "precio": 700, "descripcion": "Tomate cherry" }
+      ]
+    },
+    {
+      "nombre": "Local 6",
+      "productos": [
+        { "nombre": "Yogurt", "precio": 1250, "descripcion": "Yogurt griego" },
+        {
+          "nombre": "Aceite",
+          "precio": 2900,
+          "descripcion": "Aceite de oliva"
+        },
+        {
+          "nombre": "Huevos",
+          "precio": 2500,
+          "descripcion": "Huevos orgánicos"
+        },
+        { "nombre": "Café", "precio": 3500, "descripcion": "Café en grano" }
+      ]
+    },
+    {
+      "nombre": "Local 7",
+      "productos": [
+        { "nombre": "Queso", "precio": 3100, "descripcion": "Queso gouda" },
+        { "nombre": "Pasta", "precio": 1600, "descripcion": "Pasta integral" },
+        { "nombre": "Azúcar", "precio": 1300, "descripcion": "Azúcar morena" },
+        { "nombre": "Sal", "precio": 500, "descripcion": "Sal marina" }
+      ]
+    },
+    {
+      "nombre": "Local 8",
+      "productos": [
+        {
+          "nombre": "Carne molida",
+          "precio": 4800,
+          "descripcion": "Carne angus"
+        },
+        {
+          "nombre": "Fideos",
+          "precio": 800,
+          "descripcion": "Fideos con espinaca"
+        },
+        { "nombre": "Pan", "precio": 950, "descripcion": "Pan de centeno" },
+        { "nombre": "Pollo", "precio": 3750, "descripcion": "Pollo organico" }
+      ]
+    },
+    {
+      "nombre": "Local 9",
+      "productos": [
+        {
+          "nombre": "Leche",
+          "precio": 1400,
+          "descripcion": "Leche de almendra"
+        },
+        { "nombre": "Tomate", "precio": 680, "descripcion": "Tomate organico" },
+        { "nombre": "Aceite", "precio": 3000, "descripcion": "Aceite de coco" },
+        { "nombre": "Arroz", "precio": 2200, "descripcion": "Arroz basmati" }
+      ]
+    },
+    {
+      "nombre": "Local 10",
+      "productos": [
+        { "nombre": "Huevos", "precio": 2400, "descripcion": "Huevos color" },
+        {
+          "nombre": "Queso",
+          "precio": 3000,
+          "descripcion": "Queso mozzarella"
+        },
+        { "nombre": "Café", "precio": 3300, "descripcion": "Café colombiano" },
+        { "nombre": "Sal", "precio": 480, "descripcion": "Sal kosher" }
+      ]
+    },
+    {
+      "nombre": "Local 11",
+      "productos": [
+        {
+          "nombre": "Pasta",
+          "precio": 1500,
+          "descripcion": "Pasta sin gluten"
+        },
+        { "nombre": "Pollo", "precio": 4000, "descripcion": "Piezas de pollo" },
+        { "nombre": "Azúcar", "precio": 1250, "descripcion": "Azúcar glass" },
+        {
+          "nombre": "Yogurt",
+          "precio": 1180,
+          "descripcion": "Yogurt sin lactosa"
+        }
+      ]
+    },
+    {
+      "nombre": "Local 12",
+      "productos": [
+        { "nombre": "Arroz", "precio": 1950, "descripcion": "Arroz yamani" },
+        {
+          "nombre": "Carne molida",
+          "precio": 4600,
+          "descripcion": "Carne mol. magra"
+        },
+        { "nombre": "Pan", "precio": 880, "descripcion": "Pan de masa madre" },
+        {
+          "nombre": "Fideos",
+          "precio": 780,
+          "descripcion": "Fideos sin gluten"
+        }
+      ]
+    },
+    {
+      "nombre": "Local 13",
+      "productos": [
+        { "nombre": "Leche", "precio": 1300, "descripcion": "Leche de cabra" },
+        {
+          "nombre": "Tomate",
+          "precio": 720,
+          "descripcion": "Tomate para salsa"
+        },
+        { "nombre": "Café", "precio": 3400, "descripcion": "Café tostado" },
+        {
+          "nombre": "Aceite",
+          "precio": 2850,
+          "descripcion": "Aceite de maravilla"
+        }
+      ]
+    },
+    {
+      "nombre": "Local 14",
+      "productos": [
+        { "nombre": "Huevos", "precio": 2450, "descripcion": "Huevos L" },
+        { "nombre": "Queso", "precio": 3200, "descripcion": "Queso cheddar" },
+        { "nombre": "Sal", "precio": 520, "descripcion": "Sal rosada" },
+        {
+          "nombre": "Yogurt",
+          "precio": 1220,
+          "descripcion": "Yogurt pro-biótico"
+        }
+      ]
+    },
+    {
+      "nombre": "Local 15",
+      "productos": [
+        { "nombre": "Pasta", "precio": 1550, "descripcion": "Pasta italiana" },
+        { "nombre": "Azúcar", "precio": 1280, "descripcion": "Azúcar rubia" },
+        {
+          "nombre": "Pollo",
+          "precio": 4100,
+          "descripcion": "Supremas de pollo"
+        },
+        { "nombre": "Fideos", "precio": 820, "descripcion": "Fideos de arroz" }
+      ]
+    }
+  ]
+}
